@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chennai Super Kings - Whistle Podu!</title>
+  <meta name="description" content="Official fan hub for Chennai Super Kings — squad, fixtures, stats, news and fan zone." />
+  
+  <meta property="og:title" content="Chennai Super Kings - Whistle Podu!" />
+  <meta property="og:description" content="Fan hub: fixtures, player profiles, stats, news and fan polls." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22%23F9CD05%22/></svg>">
+  <style>
+    :root { --csk-blue:#1976d2; --csk-yellow:#F9CD05; --maxw:1200px; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(135deg,#F9CD05 0%,#FFF945 100%);
+      color:#222; min-height:100vh;
+    }
+    a{color:inherit}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+    
+    .csk-logo-bg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.05;z-index:-1;font-size:800px;color:var(--csk-blue);pointer-events:none}
+    /* Header */
+    header{position:fixed;top:0;left:0;right:0;background:linear-gradient(90deg,var(--csk-blue),#0d47a1);color:white;padding:1rem 0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+    nav{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:.6rem;font-weight:900;font-size:1.6rem;color:var(--csk-yellow)}
+    .logo-lion{font-size:1.6rem; animation:roar 2s ease-in-out infinite}
+    .nav-links{display:flex;gap:1.5rem;list-style:none}
+    .nav-links a{text-decoration:none;color:white;font-weight:600;text-transform:uppercase;letter-spacing:.8px}
+    .hamburger{display:none;cursor:pointer}
+    .hamburger span{width:25px;height:3px;background:white;display:block;margin:3px 0;transition:transform .25s}
+    /* Skip link */
+    .skip{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip:focus{left:10px;top:10px;width:auto;height:auto;padding:.5rem;background:#fff;color:#000;z-index:2000;border-radius:4px}
+    /* Hero */
+    .hero{height:calc(100vh - 80px);margin-top:80px;display:flex;align-items:center;justify-content:center;text-align:center;color:white;background:linear-gradient(rgba(25,118,210,0.85),rgba(13,71,161,0.85)),url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23F9CD05" width="1200" height="600"/><circle fill="%231976d2" cx="300" cy="150" r="80" opacity="0.3"/><circle fill="%23F9CD05" cx="900" cy="400" r="120" opacity="0.2"/></svg>') center/cover no-repeat;position:relative}
+    .hero::before{content:"🦁";position:absolute;font-size:400px;opacity:0.08;top:50%;left:50%;transform:translate(-50%,-50%)}
+    .hero h1{font-size:3rem;color:var(--csk-yellow);text-shadow:2px 2px 6px rgba(0,0,0,.5);margin-bottom:.4rem}
+    .hero p{font-size:1.1rem;margin-bottom:1rem;font-weight:600;color:white}
+    .cta-button{background:var(--csk-yellow);color:var(--csk-blue);padding:12px 24px;border-radius:999px;border:none;font-weight:700;cursor:pointer;text-decoration:none}
+  
+    main{padding:2rem 0 4rem;background:white;position:relative;margin-top:0}
+    .section{margin:2.5rem 0;padding:2rem;border-radius:16px;background:white;box-shadow:0 8px 30px rgba(0,0,0,.08);border:3px solid var(--csk-yellow)}
+    .section h2{color:var(--csk-blue);font-size:1.6rem;margin-bottom:1rem;border-bottom:3px solid var(--csk-yellow);padding-bottom:.6rem}
+ 
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+    .stat-card{background:linear-gradient(135deg,var(--csk-blue),#0d47a1);color:white;padding:20px;border-radius:12px;text-align:center}
+    .stat-card h3{font-size:2rem;color:var(--csk-yellow);margin-bottom:.3rem}
+    
+    .players-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    .player-card{background:white;border-radius:12px;border:2px solid var(--csk-yellow);overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,.08);display:flex;flex-direction:column}
+    .player-thumb{height:180px;object-fit:cover;width:100%}
+    .player-info{padding:14px;flex:1;display:flex;flex-direction:column}
+    .role{display:inline-block;background:var(--csk-blue);color:white;padding:4px 8px;border-radius:999px;font-weight:700;font-size:.8rem;margin-top:.4rem}
+    .player-actions{margin-top:auto;padding-top:10px;display:flex;gap:.5rem}
+    .btn{padding:8px 12px;border-radius:999px;border:none;cursor:pointer;font-weight:700;text-transform:uppercase}
+    .btn-primary{background:var(--csk-yellow);color:var(--csk-blue)}
+    .btn-ghost{background:transparent;border:2px solid var(--csk-blue);color:var(--csk-blue)}
+    
+    .schedule-table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;margin-top:8px}
+    .schedule-table th, .schedule-table td{padding:12px;text-align:left;border-bottom:1px solid #f0f0f0}
+    .schedule-table th{background:linear-gradient(90deg,var(--csk-blue),#0d47a1);color:white}
+    
+    .interactive-section{display:grid;grid-template-columns:1fr 380px;gap:1rem}
+    .poll-option{display:block;padding:10px;border-radius:999px;border:none;background:var(--csk-yellow);color:var(--csk-blue);font-weight:800;margin-bottom:8px;cursor:pointer}
+    
+    .news-list{list-style:disc;padding-left:1.2rem}
+ 
+    .feedback-form label{display:block;margin:.4rem 0;font-weight:700}
+    .feedback-form textarea,.feedback-form input{width:100%;padding:8px;border-radius:8px;border:1px solid #ddd}
+    
+    footer{background:var(--csk-blue);color:white;padding:1.6rem;text-align:center;border-top:4px solid var(--csk-yellow);margin-top:1rem}
+    footer a{color:var(--csk-yellow);font-weight:700}
+    
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:2000}
+    .modal{background:white;border-radius:12px;max-width:900px;width:94%;max-height:85vh;overflow:auto;padding:20px}
+    .modal img{max-width:220px;border-radius:8px}
+   
+    @media(max-width:900px){
+      .interactive-section{grid-template-columns:1fr}
+      .hamburger{display:block}
+      .nav-links{display:none;position:absolute;left:0;top:100%;width:100%;background:linear-gradient(90deg,var(--csk-blue),#0d47a1);flex-direction:column;padding:10px}
+      .nav-links.active{display:flex}
+      .hero{height:60vh}
+    }
+    @keyframes roar{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+    .logo-lion{animation:roar 2s infinite}
+    .focus-ring:focus{outline:3px solid rgba(25,118,210,.25);outline-offset:3px}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="csk-logo-bg">🦁</div>
+
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <div class="logo" aria-hidden="false"><span class="logo-lion" aria-hidden="true">🦁</span>CSK</div>
+      </div>
+
+      <ul class="nav-links" id="navLinks" role="menubar">
+        <li role="none"><a role="menuitem" href="#home">Home</a></li>
+        <li role="none"><a role="menuitem" href="#team">Squad</a></li>
+        <li role="none"><a role="menuitem" href="#schedule">Fixtures</a></li>
+        <li role="none"><a role="menuitem" href="#stats">Stats</a></li>
+        <li role="none"><a role="menuitem" href="#fan-zone">Fan Zone</a></li>
+      </ul>
+
+      <button class="hamburger" id="hambtn" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <section id="home" class="hero" aria-labelledby="hero-title">
+    <div class="container hero-content">
+      <h1 id="hero-title">🦁 Chennai Super Kings 🦁</h1>
+      <p>Whistle Podu! <span aria-hidden="true">🎵</span> Champions Forever</p>
+      <a class="cta-button" href="#team">Join the Pride</a>
+    </div>
+  </section>
+
+  <main id="main" class="container" tabindex="-1">
+    
+    <section id="stats" class="section" aria-labelledby="stats-heading">
+      <h2 id="stats-heading">🏆 Championship Legacy</h2>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card"><h3 id="champ-count">5</h3><p>IPL Championships</p></div>
+        <div class="stat-card"><h3 id="latest-title">2023</h3><p>Latest Title</p></div>
+        <div class="stat-card"><h3 id="playoffs">12</h3><p>Playoff Appearances</p></div>
+        <div class="stat-card"><h3>MS Dhoni</h3><p>Captain Cool — Leader & Legend</p></div>
+      </div>
+      
+      <p style="margin-top:.8rem;color:#444"></p>
+    </section>
+
+   
+    <section id="team" class="section" aria-labelledby="team-heading">
+      <h2 id="team-heading">💛 Squad</h2>
+      <div class="players-grid" id="playersGrid">
+        
+      </div>
+    </section>
+
+   
+    <section id="schedule" class="section" aria-labelledby="schedule-heading">
+      <h2 id="schedule-heading">📅 Upcoming Fixtures</h2>
+      <table class="schedule-table" aria-describedby="schedule-heading">
+        <thead>
+          <tr><th>Date</th><th>Opponent</th><th>Venue</th><th>Status</th></tr>
+        </thead>
+        <tbody id="scheduleBody">
+         
+        </tbody>
+      </table>
+      <p style="margin-top:.6rem;color:#444">Tip: integrate Google Calendar/ICS export per fixture for fans.</p>
+    </section>
+
+   
+    <section id="fan-zone" class="section" aria-labelledby="fanzone-heading">
+      <h2 id="fanzone-heading">🎉 Fan Zone</h2>
+      <div class="interactive-section">
+        
+        <div>
+          <div class="poll-widget" aria-labelledby="poll-heading" style="margin-bottom:1rem;padding:1rem;border-radius:12px;border:2px solid var(--csk-yellow)">
+            <h3 id="poll-heading">Vote for your favorite CSK player!</h3>
+            <div id="poll-results"></div>
+            <div id="poll-status" style="margin-top:.6rem;font-weight:bold;color:var(--csk-blue)"></div>
+          </div>
+
+          <div class="section" style="padding:1rem">
+            <h3 style="margin-bottom:.6rem">🔴 Live Updates (simulation)</h3>
+            <div id="liveFeed" aria-live="polite" style="min-height:80px;padding:.6rem;border-radius:8px;border:1px dashed #ddd;background:#fff"></div>
+            <p style="margin-top:.6rem;color:#666;font-size:.9rem">This area simulates live score updates. Replace simulation with a live API or WebSocket stream for real matches.</p>
+          </div>
+        </div>
+
+        
+        <aside>
+          <div class="news-widget" style="padding:1rem;margin-bottom:1rem;border-radius:12px;border:2px solid var(--csk-yellow)">
+            <h3>Latest News</h3>
+            <ul id="newsList" class="news-list" aria-live="polite"></ul>
+            <small style="display:block;margin-top:.6rem;color:#666">News refreshes automatically (simulated).</small>
+          </div>
+
+          <div class="poll-widget feedback-form" style="padding:1rem;border-radius:12px;border:2px solid var(--csk-yellow)">
+            <h3>Send feedback to mentors</h3>
+            <label for="fname">Name</label>
+            <input id="fname" placeholder="Your name" />
+            <label for="feedback">Feedback</label>
+            <textarea id="feedback" rows="4" placeholder="What should be improved?"></textarea>
+            <button class="btn btn-primary" onclick="submitFeedback()">Submit Feedback</button>
+            <div id="feedbackStatus" style="margin-top:.5rem;font-weight:700;color:var(--csk-blue)"></div>
+          </div>
+
+          <div class="section" style="padding:1rem;margin-top:1rem;border-radius:12px;border:2px solid var(--csk-yellow)">
+            <h3>Forum</h3>
+            <p>Want a discussion board? Use a third-party provider (Disqus) or a backend (Firebase/Firestore) to store threads.</p>
+            <a class="btn btn-ghost" href="#" onclick="openForum()" aria-label="Open forum">Join discussion</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Follow CSK on
+      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a> |
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a> |
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
+    </p>
+    <p>© 2025 Chennai Super Kings. All Rights Reserved.</p>
+  </footer>
+
+  
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-hidden="true" aria-labelledby="modalTitle">
+    <div class="modal" role="document">
+      <button style="float:right;border:none;background:transparent;font-size:1.2rem;cursor:pointer" onclick="closeModal()" aria-label="Close modal">✖</button>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <img id="modalImg" src="" alt="">
+        <div>
+          <h2 id="modalTitle"></h2>
+          <p id="modalBio"></p>
+          <p id="modalStats" style="font-weight:700"></p>
+          <p style="margin-top:.8rem;color:#666;font-size:.95rem"> </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+
+const players = [
+  { id:'dhoni', name:'MS Dhoni', role:'Captain', img:'./Dhoni.jpg', bio:'Leader, finisher, former India captain. Helm of CSK for years.', stats:{matches:250,runs:9000,avg:45.3} },
+  { id:'jadeja', name:'Ravindra Jadeja', role:'All-Rounder', img:'./jaddu.jpeg', bio:'Spin wizard, electric fielder and handy finisher.', stats:{matches:200,wickets:250,avg:24.6} },
+  { id:'gaikwad', name:'Ruturaj Gaikwad', role:'Batsman', img:'./Rutu.jpeg', bio:'Reliable top-order batter with elegant strokeplay.', stats:{matches:80,runs:2800,avg:38.9} },
+  { id:'chahar', name:'Deepak Chahar', role:'Bowler', img:'./Deepak.jpeg', bio:'Swing bowler who loves the new ball.', stats:{matches:100,wickets:120,avg:22.4} },
+  { id:'dube', name:'Shivam Dube', role:'All-Rounder', img:'./Dube.jpeg', bio:'Power hitter and seam option.', stats:{matches:60,runs:1200,avg:28.1} },
+  { id:'rachin', name:'Rachin Ravindra', role:'All-Rounder', img:'./Rachin.jpg', bio:'Classy left-hander and off-spinner.', stats:{matches:30,runs:800,avg:33.3} },
+
+ 
+  { id:'moin', name:'Moeen Ali', role:'All-Rounder', img:'./Moeen.jpeg', bio:'Stylish left-handed batter and off-spin option from England.', stats:{matches:90,runs:1800,wickets:70,avg:29.8} },
+  { id:'conway', name:'Devon Conway', role:'Batsman', img:'./Conway.jpeg', bio:'New Zealand opener known for consistency and calmness.', stats:{matches:40,runs:1500,avg:41.7} },
+  { id:'stokes', name:'Ben Stokes', role:'All-Rounder', img:'./stokes.jpeg', bio:'Dynamic match-winner with both bat and ball.', stats:{matches:110,runs:2800,wickets:90,avg:34.2} },
+  { id:'pathirana', name:'Matheesa Pathirana', role:'Bowler', img:'./Pathirana.jpeg', bio:'Sri Lankan slinger, dubbed the next Malinga.', stats:{matches:25,wickets:45,avg:21.6} },
+  { id:'thakur', name:'Shardul Thakur', role:'Bowler', img:'./Thakur.jpeg', bio:'Lord Thakur – wicket-taker and handy lower-order hitter.', stats:{matches:120,wickets:130,runs:850,avg:20.5} }
+];
+
+
+const fixtures = [
+  { date:'2025-09-10', opponent:'RCB', venue:'M. A. Chidambaram Stadium', status:'Upcoming' },
+  { date:'2025-09-15', opponent:'MI', venue:'Wankhede Stadium', status:'Upcoming' },
+  { date:'2025-09-20', opponent:'KKR', venue:'Eden Gardens', status:'Upcoming' }
+];
+
+
+function createPlayerCard(p){
+  const div = document.createElement('div');
+  div.className='player-card';
+  div.innerHTML = `
+    <img class="player-thumb" src="${p.img}" alt="${p.name} photo" loading="lazy" />
+    <div class="player-info">
+      <div>
+        <h3 style="color:var(--csk-blue)">${p.name}</h3>
+        <span class="role">${p.role}</span>
+        <p style="color:#666;margin-top:.6rem">${p.bio.substring(0,80)}...</p>
+      </div>
+      <div class="player-actions" role="group" aria-label="${p.name} actions">
+        <button class="btn btn-primary focus-ring" onclick="openProfile('${p.id}')">View Profile</button>
+        <button class="btn btn-ghost focus-ring" onclick="vote('${p.id}')">Vote</button>
+      </div>
+    </div>
+  `;
+  return div;
+}
+
+const playersGrid = document.getElementById('playersGrid');
+players.forEach(p => playersGrid.appendChild(createPlayerCard(p)));
+
+
+const scheduleBody = document.getElementById('scheduleBody');
+function formatDateISO(dStr){
+  const d = new Date(dStr + 'T00:00:00'); // treat as local date
+  return d.toLocaleDateString(undefined, {day:'2-digit', month:'short', year:'numeric'});
+}
+fixtures.forEach(f=>{
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td>${formatDateISO(f.date)}</td><td>${f.opponent}</td><td>${f.venue}</td><td>${f.status}</td>`;
+  scheduleBody.appendChild(tr);
+});
+
+
+const pollKey = 'csk-poll-votes-v1';
+let votes = JSON.parse(localStorage.getItem(pollKey)) || { dhoni:52, jadeja:28, raina:12, gaikwad:8, dhoni_voted:false };
+
+function saveVotes(){ localStorage.setItem(pollKey, JSON.stringify(votes)); }
+function renderPoll(){
+  const total = Object.keys(votes).filter(k=>!k.endsWith('_voted')).reduce((s,k)=>s + (votes[k]||0), 0);
+  const container = document.getElementById('poll-results');
+  container.innerHTML = `
+    <button class="poll-option" onclick="vote('dhoni')">MS Dhoni - Captain Cool (${Math.round((votes.dhoni/total)*100)||0}%)</button>
+    <button class="poll-option" onclick="vote('jadeja')">Ravindra Jadeja (${Math.round((votes.jadeja/total)*100)||0}%)</button>
+    <button class="poll-option" onclick="vote('raina')">Suresh Raina (${Math.round((votes.raina/total)*100)||0}%)</button>
+    <button class="poll-option" onclick="vote('gaikwad')">Ruturaj Gaikwad (${Math.round((votes.gaikwad/total)*100)||0}%)</button>
+  `;
+  document.getElementById('poll-status').innerText = '🦁 Vote for Yellow Army!';
+}
+function vote(player){
+  
+  if (localStorage.getItem('csk-voted')) {
+    document.getElementById('poll-status').innerText = 'You have already voted. Thank you! 🦁';
+    return;
+  }
+  if(!votes[player]) votes[player]=0;
+  votes[player] += 1;
+  localStorage.setItem('csk-voted','1');
+  saveVotes();
+  renderPoll();
+  document.getElementById('poll-status').innerText = '🦁 Whistle Podu! Thanks for voting! 🎵';
+}
+
+function submitFeedback(){
+  const name = document.getElementById('fname').value.trim() || 'Anonymous';
+  const fb = document.getElementById('feedback').value.trim();
+  if(!fb){ document.getElementById('feedbackStatus').innerText = 'Please write feedback first.'; return; }
+  // Here you would send to your backend; we'll store in localStorage as demo
+  const key = 'csk-feedback';
+  const all = JSON.parse(localStorage.getItem(key) || '[]');
+  all.push({ name, feedback: fb, ts: Date.now() });
+  localStorage.setItem(key, JSON.stringify(all));
+  document.getElementById('feedbackStatus').innerText = 'Thanks! Feedback saved locally (demo).';
+  document.getElementById('feedback').value='';
+}
+
+
+const modal = document.getElementById('modalBackdrop');
+function openProfile(id){
+  const p = players.find(x => x.id===id);
+  if(!p) return;
+  document.getElementById('modalImg').src = p.img;
+  document.getElementById('modalImg').alt = p.name + ' photo';
+  document.getElementById('modalTitle').innerText = p.name;
+  document.getElementById('modalBio').innerText = p.bio;
+  document.getElementById('modalStats').innerText = `Matches: ${p.stats.matches || '—'}, Runs/Wkts: ${p.stats.runs||p.stats.wickets||'—'}. Avg: ${p.stats.avg || '—'}`;
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden','false');
+}
+function closeModal(){
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden','true');
+}
+
+const newsSeed = [
+  'MS Dhoni set to play 2025 season opener.',
+  'Ruturaj Gaikwad scores century in practice match.',
+  'CSK unveils new yellow jersey for the season.'
+];
+let news = [...newsSeed];
+function renderNews(){
+  const ul = document.getElementById('newsList');
+  ul.innerHTML = news.map(n => `<li>${n}</li>`).join('');
+}
+renderNews();
+
+
+const liveFeed = document.getElementById('liveFeed');
+function pushLive(msg){
+  const p = document.createElement('div');
+  p.innerText = `${new Date().toLocaleTimeString()}: ${msg}`;
+  liveFeed.prepend(p);
+}
+let simIndex = 0;
+const simMessages = [
+  "Toss: CSK choose to field.",
+  "Over 3.4: 2 runs. Jadeja bowls a beauty.",
+  "Over 10.2: WICKET! Top-order departs.",
+  "Over 14.6: Boundary! Gaikwad drives it past cover.",
+  "Match update: Rain possible — covers coming on."
+];
+setInterval(()=>{
+  pushLive(simMessages[simIndex % simMessages.length]);
+  simIndex++;
+  
+  if(simIndex % 3 === 0){
+    news.unshift(`Breaking: ${simMessages[simIndex % simMessages.length]}`);
+    if(news.length>6) news.pop();
+    renderNews();
+  }
+}, 6000);
+
+function openForum(){
+  alert('Forum placeholder — integrate Disqus/Firebase/Github Discussions for a full forum. This is a demonstration CTA.');
+}
+
+
+function toggleMenu(){
+  const nav = document.getElementById('navLinks');
+  const btn = document.getElementById('hambtn');
+  nav.classList.toggle('active');
+  const expanded = nav.classList.contains('active');
+  btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+}
+
+
+renderPoll();
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') closeModal();
+});
+</script>
+</body>
+</html>
