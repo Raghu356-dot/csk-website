@@ -332,7 +332,7 @@ function submitFeedback(){
   const all = JSON.parse(localStorage.getItem(key) || '[]');
   all.push({ name, feedback: fb, ts: Date.now() });
   localStorage.setItem(key, JSON.stringify(all));
-  document.getElementById('feedbackStatus').innerText = 'Thanks! Feedback saved locally (demo).';
+  document.getElementById('feedbackStatus').innerText = 'Thanks! Feedback saved .';
   document.getElementById('feedback').value='';
 }
 
@@ -393,7 +393,7 @@ setInterval(()=>{
 }, 6000);
 
 function openForum(){
-  alert('Forum placeholder — integrate Disqus/Firebase/Github Discussions for a full forum. This is a demonstration CTA.');
+  alert('click below links in footer to join ourcommunity');
 }
 
 
@@ -414,3 +414,4 @@ document.addEventListener('keydown', (e) => {
 </script>
 </body>
 </html>
+
