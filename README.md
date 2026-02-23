@@ -111,11 +111,4 @@ Since this is a static website, you can host it using:
 
 Just upload the project and point to `index.html` as the entry.
 
----
 
-
-✅ A **screenshots preview section** in the README
-✅ A **color palette guide**
-✅ A **responsive design checklist**
-
-Just ask! 💛💙
